@@ -1,1 +1,718 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الإحالات - Crynova</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --primary: #4361ee;
+      --primary-light: #e6ebff;
+      --secondary: #3a0ca3;
+      --accent: #f72585;
+      --success: #4cc9f0;
+      --light: #f8f9fa;
+      --dark: #212529;
+      --gray: #6c757d;
+      --light-gray: #e9ecef;
+      --border-radius: 12px;
+      --border-radius-lg: 20px;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
+      --shadow: 0 5px 15px rgba(0,0,0,0.08);
+      --shadow-lg: 0 10px 30px rgba(0,0,0,0.1);
+    }
 
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      color: var(--dark);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* الشريط العلوي - تم تعديل الارتفاع هنا */
+    .withdraw-header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 30px 15px;
+      text-align: center;
+      position: relative;
+      width: 100%;
+      box-shadow: 0 4px 12px rgba(67, 97, 238, 0.3);
+      z-index: 100;
+    }
+
+    .withdraw-header h1 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+      margin-top: 0;
+    }
+
+    .withdraw-header p {
+      opacity: 0.9;
+      font-size: 0.9rem;
+      margin-bottom: 0;
+    }
+
+    .withdraw-close-btn {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: white;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      font-size: 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      z-index: 11;
+    }
+
+    .withdraw-close-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    /* ========== التصميم الرئيسي ========== */
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+      padding-top: 70px; /* تعديل من 90px إلى 70px */
+    }
+
+    /* بطاقة المكافآت الرئيسية */
+    .main-reward-card {
+      background: white;
+      border-radius: var(--border-radius-lg);
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(67, 97, 238, 0.1);
+    }
+
+    .reward-badge {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: var(--accent);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .reward-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 24px;
+      margin-bottom: 16px;
+    }
+
+    .reward-amount {
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: var(--dark);
+    }
+
+    .reward-label {
+      color: var(--gray);
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .progress-bar {
+      height: 6px;
+      background: var(--light-gray);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--success));
+      width: 65%;
+      border-radius: 3px;
+    }
+
+    .progress-text {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--gray);
+    }
+
+    /* بطاقة رابط الإحالة */
+    .link-card {
+      background: white;
+      border-radius: var(--border-radius);
+      padding: 20px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+      border-left: 4px solid var(--primary);
+    }
+
+    .link-card h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--dark);
+    }
+
+    .link-input-group {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .link-input {
+      flex: 1;
+      padding: 12px 16px;
+      border: 1px solid var(--light-gray);
+      border-radius: var(--border-radius);
+      font-size: 14px;
+      color: var(--dark);
+      background: var(--light);
+    }
+
+    .copy-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0 20px;
+      border-radius: var(--border-radius);
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .copy-btn:hover {
+      background: var(--secondary);
+      transform: translateY(-1px);
+    }
+
+    .share-buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .share-btn {
+      flex: 1;
+      min-width: 70px;
+      padding: 10px;
+      border: 1px solid var(--light-gray);
+      border-radius: var(--border-radius);
+      background: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      color: var(--dark);
+      transition: all 0.2s ease;
+    }
+
+    .share-btn:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .share-icon {
+      font-size: 20px;
+    }
+
+    .share-label {
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    /* الشبكة السريعة */
+    .quick-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .stat-item {
+      background: white;
+      border-radius: var(--border-radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+
+    .stat-item:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .stat-number {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: var(--dark);
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--gray);
+      font-weight: 500;
+    }
+
+    /* قائمة الإحالات */
+    .referrals-section {
+      background: white;
+      border-radius: var(--border-radius);
+      padding: 20px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    .view-all {
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .referrals-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .referral-item {
+      display: flex;
+      align-items: center;
+      padding: 16px;
+      background: var(--light);
+      border-radius: var(--border-radius);
+      transition: all 0.2s ease;
+    }
+
+    .referral-item:hover {
+      background: white;
+      box-shadow: var(--shadow-sm);
+      transform: translateX(-3px);
+    }
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      margin-left: 12px;
+    }
+
+    .referral-info {
+      flex: 1;
+    }
+
+    .referral-name {
+      font-weight: 600;
+      margin-bottom: 2px;
+      color: var(--dark);
+    }
+
+    .referral-date {
+      font-size: 12px;
+      color: var(--gray);
+    }
+
+    .referral-earnings {
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 16px;
+    }
+
+    /* المكافآت المميزة */
+    .featured-rewards {
+      margin-bottom: 24px;
+    }
+
+    .featured-card {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: var(--border-radius-lg);
+      padding: 24px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .featured-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 1%, transparent 20%);
+      opacity: 0.3;
+    }
+
+    .featured-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .featured-desc {
+      opacity: 0.9;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+
+    .featured-bonus {
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .featured-subtext {
+      font-size: 12px;
+      opacity: 0.8;
+    }
+
+    /* التأثيرات */
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .fade-in {
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* تجاوبية */
+    @media (max-width: 480px) {
+      .container {
+        padding: 16px;
+        padding-top: 65px; /* تعديل من 85px إلى 65px */
+      }
+      
+      .quick-stats {
+        grid-template-columns: 1fr;
+      }
+      
+      .link-input-group {
+        flex-direction: column;
+      }
+      
+      .copy-btn {
+        width: 100%;
+        padding: 12px;
+      }
+      
+      .share-buttons {
+        justify-content: center;
+      }
+      
+      .share-btn {
+        min-width: 60px;
+      }
+      
+      .withdraw-header h1 {
+        font-size: 1.2rem;
+      }
+      
+      .withdraw-header p {
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- الشريط العلوي -->
+  <div class="withdraw-header">
+    <button class="withdraw-close-btn" id="withdrawCloseBtn">&times;</button>
+    <h1>الإحالات</h1>
+    <p>ادعُ أصدقاءك واكسب المكافآت</p>
+  </div>
+
+  <!-- المحتوى الرئيسي -->
+  <div class="container">
+    <!-- بطاقة المكافآت الرئيسية -->
+    <div class="main-reward-card fade-in">
+      <div class="reward-badge">الأرباح الإجمالية</div>
+      <div class="reward-icon">💰</div>
+      <div class="reward-amount">1,850 CNC</div>
+      <div class="reward-label">إجمالي أرباحك من الإحالات</div>
+      
+      <div class="progress-bar">
+        <div class="progress-fill"></div>
+      </div>
+      <div class="progress-text">
+        <span>الهدف: 2,500 CNC</span>
+        <span>65%</span>
+      </div>
+    </div>
+
+    <!-- بطاقة رابط الإحالة -->
+    <div class="link-card fade-in">
+      <h3>رابط الإحالة الخاص بك</h3>
+      <div class="link-input-group">
+        <input type="text" class="link-input" id="referralLink" value="https://t.me/CrynovaWalletBot?start=ref_5922049376" readonly>
+        <button class="copy-btn" onclick="copyLink()">نسخ الرابط</button>
+      </div>
+      
+      <div class="share-buttons">
+        <a href="#" class="share-btn" onclick="shareTelegram()">
+          <span class="share-icon">✈️</span>
+          <span class="share-label">Telegram</span>
+        </a>
+        <a href="#" class="share-btn" onclick="shareWhatsApp()">
+          <span class="share-icon">💚</span>
+          <span class="share-label">WhatsApp</span>
+        </a>
+        <a href="#" class="share-btn" onclick="shareFacebook()">
+          <span class="share-icon">📘</span>
+          <span class="share-label">Facebook</span>
+        </a>
+        <a href="#" class="share-btn" onclick="shareTwitter()">
+          <span class="share-icon">🐦</span>
+          <span class="share-label">Twitter</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- الشبكة السريعة -->
+    <div class="quick-stats fade-in">
+      <div class="stat-item">
+        <div class="stat-number">24</div>
+        <div class="stat-label">إحالات نشطة</div>
+      </div>
+    </div>
+
+    <!-- قائمة الإحالات -->
+    <div class="referrals-section fade-in">
+      <div class="section-header">
+        <h3 class="section-title">أحدث الإحالات</h3>
+        <a href="#" class="view-all">عرض الكل</a>
+      </div>
+      
+      <div class="referrals-list" id="referralsList">
+        <!-- سيتم ملؤها ديناميكياً -->
+      </div>
+    </div>
+
+    <!-- المكافآت المميزة -->
+    <div class="featured-rewards fade-in">
+      <div class="featured-card pulse">
+        <div class="featured-title">مكافأة خاصة! 🎉</div>
+        <div class="featured-desc">اكل صديق يسجّل عبر رابط الإحالة الخاص بك
+تتحصل تلقائيًا على مكافأتك</div>
+        <div class="featured-bonus">+0.5 CNC</div>
+        <div class="featured-subtext">مكافأة إضافية تمنح تلقائياً</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // بيانات الإحالات
+    const referrals = [
+      { id: 1, name: "عمر أحمد", date: "15 مارس", earnings: 50, initial: "ع", status: "active" },
+      { id: 2, name: "سارة محمد", date: "10 مارس", earnings: 50, initial: "س", status: "active" },
+      { id: 3, name: "محمد خالد", date: "5 مارس", earnings: 25, initial: "م", status: "pending" },
+      { id: 4, name: "فاطمة علي", date: "1 مارس", earnings: 50, initial: "ف", status: "active" },
+      { id: 5, name: "خالد سعيد", date: "28 فبراير", earnings: 50, initial: "خ", status: "active" }
+    ];
+
+    // تهيئة الصفحة
+    document.addEventListener('DOMContentLoaded', function() {
+      loadReferrals();
+      startAnimations();
+      setupCloseButton();
+    });
+
+    // إعداد زر الإغلاق
+    function setupCloseButton() {
+      document.getElementById('withdrawCloseBtn').addEventListener('click', function() {
+        // العودة إلى الصفحة الرئيسية
+        window.location.href = 'index.html';
+      });
+    }
+
+    function loadReferrals() {
+      const list = document.getElementById('referralsList');
+      list.innerHTML = '';
+      
+      referrals.forEach(referral => {
+        const item = document.createElement('div');
+        item.className = 'referral-item';
+        item.innerHTML = `
+          <div class="avatar">${referral.initial}</div>
+          <div class="referral-info">
+            <div class="referral-name">${referral.name}</div>
+            <div class="referral-date">انضم في ${referral.date}</div>
+          </div>
+          <div class="referral-earnings">+${referral.earnings} CNC</div>
+        `;
+        list.appendChild(item);
+      });
+    }
+
+    function startAnimations() {
+      // تأثير النبض للبطاقة المميزة
+      const featuredCard = document.querySelector('.featured-card');
+      setInterval(() => {
+        featuredCard.classList.toggle('pulse');
+      }, 4000);
+    }
+
+    // دوال النسخ والمشاركة
+    function copyLink() {
+      const linkInput = document.getElementById('referralLink');
+      linkInput.select();
+      linkInput.setSelectionRange(0, 99999);
+      
+      navigator.clipboard.writeText(linkInput.value).then(() => {
+        showNotification('تم نسخ رابط الإحالة بنجاح!');
+      });
+    }
+
+    function shareTelegram() {
+      const link = encodeURIComponent(document.getElementById('referralLink').value);
+      const text = encodeURIComponent('انضم إلى Crynova Wallet واحصل على مكافآت رائعة! 🚀');
+      window.open(`https://t.me/share/url?url=${link}&text=${text}`, '_blank');
+    }
+
+    function shareWhatsApp() {
+      const link = encodeURIComponent(document.getElementById('referralLink').value);
+      const text = encodeURIComponent('انضم إلى Crynova Wallet واحصل على مكافآت رائعة! 🚀');
+      window.open(`https://wa.me/?text=${text}%20${link}`, '_blank');
+    }
+
+    function shareFacebook() {
+      const link = encodeURIComponent(document.getElementById('referralLink').value);
+      window.open(`https://www.facebook.com/sharer/sharer.php?u=${link}`, '_blank');
+    }
+
+    function shareTwitter() {
+      const link = encodeURIComponent(document.getElementById('referralLink').value);
+      const text = encodeURIComponent('انضم إلى Crynova Wallet واحصل على مكافآت رائعة! 🚀');
+      window.open(`https://twitter.com/intent/tweet?url=${link}&text=${text}`, '_blank');
+    }
+
+    // عرض الإشعارات
+    function showNotification(message) {
+      // إنشاء عنصر الإشعار
+      const notification = document.createElement('div');
+      notification.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #4361ee;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        z-index: 1000;
+        font-weight: 500;
+        animation: slideUp 0.3s ease;
+      `;
+      
+      notification.textContent = message;
+      document.body.appendChild(notification);
+      
+      // إخفاء الإشعار بعد 3 ثوانٍ
+      setTimeout(() => {
+        notification.style.opacity = '0';
+        notification.style.transition = 'opacity 0.3s ease';
+        setTimeout(() => {
+          notification.remove();
+        }, 300);
+      }, 3000);
+      
+      // إضافة CSS للأنيميشن
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes slideUp {
+          from {
+            transform: translateX(-50%) translateY(20px);
+            opacity: 0;
+          }
+          to {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+          }
+        }
+      `;
+      document.head.appendChild(style);
+    }
+
+    // تحديث البيانات ديناميكياً
+    setInterval(() => {
+      // تحديث الأرقام عشوائياً (محاكاة)
+      const stats = document.querySelectorAll('.stat-number');
+      stats.forEach(stat => {
+        const current = parseInt(stat.textContent);
+        const change = Math.floor(Math.random() * 3) - 1; // -1, 0, 1
+        const newValue = Math.max(0, current + change);
+        stat.textContent = newValue;
+      });
+    }, 10000);
+  </script>
+</body>
+</html>
