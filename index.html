@@ -579,11 +579,20 @@
       setupCloseButton();
     });
 
-    // إعداد زر الإغلاق
+    // إعداد زر الإغلاق - تعديل لجعله يعمل للخروج
     function setupCloseButton() {
       document.getElementById('withdrawCloseBtn').addEventListener('click', function() {
-        // العودة إلى الصفحة الرئيسية
-        window.location.href = 'index.html';
+        // مغادرة الصفحة والخروج
+        window.close();
+        
+        // بديل إذا لم يعمل window.close()
+        if (window.history.length > 1) {
+          window.history.back();
+        } else {
+          // إذا لم يكن هناك صفحة سابقة، إغلاق النافذة أو إعادة التوجيه للصفحة الرئيسية
+          window.location.href = 'about:blank';
+          window.close();
+        }
       });
     }
 
