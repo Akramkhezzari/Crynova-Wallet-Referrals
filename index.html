@@ -42,7 +42,7 @@
     .withdraw-header {
       background: linear-gradient(135deg, var(--primary), var(--secondary));
       color: white;
-      padding: 30px 15px;
+      padding: 30px 15px; /* تغيير من 20px إلى 30px */
       text-align: center;
       position: relative;
       width: 100%;
@@ -93,7 +93,7 @@
       max-width: 500px;
       margin: 0 auto;
       padding: 20px;
-      padding-top: 70px; /* تعديل من 90px إلى 70px */
+      padding-top: 20px; /* تعديل من 70px إلى 20px */
     }
 
     /* بطاقة المكافآت الرئيسية */
@@ -157,7 +157,7 @@
     .progress-fill {
       height: 100%;
       background: linear-gradient(90deg, var(--primary), var(--success));
-      width: 65%;
+      width: 0%;
       border-radius: 3px;
     }
 
@@ -448,7 +448,7 @@
     @media (max-width: 480px) {
       .container {
         padding: 16px;
-        padding-top: 65px; /* تعديل من 85px إلى 65px */
+        padding-top: 20px; /* تعديل من 65px إلى 20px */
       }
       
       .quick-stats {
@@ -496,15 +496,15 @@
     <div class="main-reward-card fade-in">
       <div class="reward-badge">الأرباح الإجمالية</div>
       <div class="reward-icon">💰</div>
-      <div class="reward-amount">1,850 CNC</div>
+      <div class="reward-amount">0 CNC</div>
       <div class="reward-label">إجمالي أرباحك من الإحالات</div>
       
       <div class="progress-bar">
         <div class="progress-fill"></div>
       </div>
       <div class="progress-text">
-        <span>الهدف: 2,500 CNC</span>
-        <span>65%</span>
+        <span>الهدف: 0 CNC</span>
+        <span>0%</span>
       </div>
     </div>
 
@@ -512,7 +512,7 @@
     <div class="link-card fade-in">
       <h3>رابط الإحالة الخاص بك</h3>
       <div class="link-input-group">
-        <input type="text" class="link-input" id="referralLink" value="https://t.me/CrynovaWalletBot?start=ref_5922049376" readonly>
+        <input type="text" class="link-input" id="referralLink" value="https://t.me/Crynova_Wallet_bot" readonly>
         <button class="copy-btn" onclick="copyLink()">نسخ الرابط</button>
       </div>
       
@@ -539,7 +539,7 @@
     <!-- الشبكة السريعة -->
     <div class="quick-stats fade-in">
       <div class="stat-item">
-        <div class="stat-number">24</div>
+        <div class="stat-number">0</div>
         <div class="stat-label">إحالات نشطة</div>
       </div>
     </div>
@@ -560,7 +560,7 @@
     <div class="featured-rewards fade-in">
       <div class="featured-card pulse">
         <div class="featured-title">مكافأة خاصة! 🎉</div>
-        <div class="featured-desc">اكل صديق يسجّل عبر رابط الإحالة الخاص بك
+        <div class="featured-desc">كل صديق يسجّل عبر رابط الإحالة الخاص بك
 تتحصل تلقائيًا على مكافأتك</div>
         <div class="featured-bonus">+0.5 CNC</div>
         <div class="featured-subtext">مكافأة إضافية تمنح تلقائياً</div>
@@ -569,14 +569,8 @@
   </div>
 
   <script>
-    // بيانات الإحالات
-    const referrals = [
-      { id: 1, name: "عمر أحمد", date: "15 مارس", earnings: 50, initial: "ع", status: "active" },
-      { id: 2, name: "سارة محمد", date: "10 مارس", earnings: 50, initial: "س", status: "active" },
-      { id: 3, name: "محمد خالد", date: "5 مارس", earnings: 25, initial: "م", status: "pending" },
-      { id: 4, name: "فاطمة علي", date: "1 مارس", earnings: 50, initial: "ف", status: "active" },
-      { id: 5, name: "خالد سعيد", date: "28 فبراير", earnings: 50, initial: "خ", status: "active" }
-    ];
+    // بيانات الإحالات (تمت إزالة البيانات الوهمية)
+    const referrals = [];
 
     // تهيئة الصفحة
     document.addEventListener('DOMContentLoaded', function() {
@@ -596,6 +590,11 @@
     function loadReferrals() {
       const list = document.getElementById('referralsList');
       list.innerHTML = '';
+      
+      if (referrals.length === 0) {
+        list.innerHTML = '<div style="text-align: center; padding: 20px; color: var(--gray);">لا توجد إحالات بعد</div>';
+        return;
+      }
       
       referrals.forEach(referral => {
         const item = document.createElement('div');
@@ -701,18 +700,6 @@
       `;
       document.head.appendChild(style);
     }
-
-    // تحديث البيانات ديناميكياً
-    setInterval(() => {
-      // تحديث الأرقام عشوائياً (محاكاة)
-      const stats = document.querySelectorAll('.stat-number');
-      stats.forEach(stat => {
-        const current = parseInt(stat.textContent);
-        const change = Math.floor(Math.random() * 3) - 1; // -1, 0, 1
-        const newValue = Math.max(0, current + change);
-        stat.textContent = newValue;
-      });
-    }, 10000);
   </script>
 </body>
 </html>
