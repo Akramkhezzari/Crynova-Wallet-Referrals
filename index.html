@@ -38,11 +38,11 @@
       line-height: 1.6;
     }
 
-    /* الشريط العلوي - تم تعديل الارتفاع هنا */
+    /* الشريط العلوي */
     .withdraw-header {
       background: linear-gradient(135deg, var(--primary), var(--secondary));
       color: white;
-      padding: 30px 15px; /* تغيير من 20px إلى 30px */
+      padding: 30px 15px;
       text-align: center;
       position: relative;
       width: 100%;
@@ -93,7 +93,7 @@
       max-width: 500px;
       margin: 0 auto;
       padding: 20px;
-      padding-top: 20px; /* تعديل من 70px إلى 20px */
+      padding-top: 20px;
     }
 
     /* بطاقة المكافآت الرئيسية */
@@ -166,6 +166,17 @@
       justify-content: space-between;
       font-size: 12px;
       color: var(--gray);
+    }
+
+    /* سطر إحالات نشطة - نفس تصميم الهدف */
+    .active-stats-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--gray);
+      margin-top: 8px;
+      padding-top: 4px;
+      border-top: 1px dashed var(--light-gray);
     }
 
     /* بطاقة رابط الإحالة */
@@ -256,41 +267,6 @@
       font-weight: 500;
     }
 
-    /* الشبكة السريعة */
-    .quick-stats {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-      margin-bottom: 24px;
-    }
-
-    .stat-item {
-      background: white;
-      border-radius: var(--border-radius);
-      padding: 20px;
-      box-shadow: var(--shadow);
-      text-align: center;
-      transition: all 0.2s ease;
-    }
-
-    .stat-item:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--shadow-lg);
-    }
-
-    .stat-number {
-      font-size: 28px;
-      font-weight: 700;
-      margin-bottom: 4px;
-      color: var(--dark);
-    }
-
-    .stat-label {
-      font-size: 12px;
-      color: var(--gray);
-      font-weight: 500;
-    }
-
     /* قائمة الإحالات */
     .referrals-section {
       background: white;
@@ -375,66 +351,7 @@
       font-size: 16px;
     }
 
-    /* المكافآت المميزة */
-    .featured-rewards {
-      margin-bottom: 24px;
-    }
-
-    .featured-card {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      border-radius: var(--border-radius-lg);
-      padding: 24px;
-      color: white;
-      position: relative;
-      overflow: hidden;
-      box-shadow: var(--shadow-lg);
-    }
-
-    .featured-card::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      right: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(255,255,255,0.1) 1%, transparent 20%);
-      opacity: 0.3;
-    }
-
-    .featured-title {
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .featured-desc {
-      opacity: 0.9;
-      margin-bottom: 20px;
-      font-size: 14px;
-    }
-
-    .featured-bonus {
-      font-size: 32px;
-      font-weight: 800;
-      margin-bottom: 8px;
-    }
-
-    .featured-subtext {
-      font-size: 12px;
-      opacity: 0.8;
-    }
-
     /* التأثيرات */
-    .pulse {
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
-    }
-
     .fade-in {
       animation: fadeIn 0.5s ease;
     }
@@ -448,11 +365,7 @@
     @media (max-width: 480px) {
       .container {
         padding: 16px;
-        padding-top: 20px; /* تعديل من 65px إلى 20px */
-      }
-      
-      .quick-stats {
-        grid-template-columns: 1fr;
+        padding-top: 20px;
       }
       
       .link-input-group {
@@ -506,6 +419,12 @@
         <span>الهدف: 0 CNC</span>
         <span>0%</span>
       </div>
+
+      <!-- إحالات نشطة - بنفس تصميم الهدف -->
+      <div class="active-stats-row">
+        <span>إحالات نشطة</span>
+        <span>0</span>
+      </div>
     </div>
 
     <!-- بطاقة رابط الإحالة -->
@@ -536,14 +455,6 @@
       </div>
     </div>
 
-    <!-- الشبكة السريعة -->
-    <div class="quick-stats fade-in">
-      <div class="stat-item">
-        <div class="stat-number">0</div>
-        <div class="stat-label">إحالات نشطة</div>
-      </div>
-    </div>
-
     <!-- قائمة الإحالات -->
     <div class="referrals-section fade-in">
       <div class="section-header">
@@ -555,41 +466,25 @@
         <!-- سيتم ملؤها ديناميكياً -->
       </div>
     </div>
-
-    <!-- المكافآت المميزة -->
-    <div class="featured-rewards fade-in">
-      <div class="featured-card pulse">
-        <div class="featured-title">مكافأة خاصة! 🎉</div>
-        <div class="featured-desc">كل صديق يسجّل عبر رابط الإحالة الخاص بك
-تتحصل تلقائيًا على مكافأتك</div>
-        <div class="featured-bonus">+0.5 CNC</div>
-        <div class="featured-subtext">مكافأة إضافية تمنح تلقائياً</div>
-      </div>
-    </div>
   </div>
 
   <script>
-    // بيانات الإحالات (تمت إزالة البيانات الوهمية)
+    // بيانات الإحالات
     const referrals = [];
 
     // تهيئة الصفحة
     document.addEventListener('DOMContentLoaded', function() {
       loadReferrals();
-      startAnimations();
       setupCloseButton();
     });
 
-    // إعداد زر الإغلاق - تعديل لجعله يعمل للخروج
+    // إعداد زر الإغلاق
     function setupCloseButton() {
       document.getElementById('withdrawCloseBtn').addEventListener('click', function() {
-        // مغادرة الصفحة والخروج
         window.close();
-        
-        // بديل إذا لم يعمل window.close()
         if (window.history.length > 1) {
           window.history.back();
         } else {
-          // إذا لم يكن هناك صفحة سابقة، إغلاق النافذة أو إعادة التوجيه للصفحة الرئيسية
           window.location.href = 'about:blank';
           window.close();
         }
@@ -618,14 +513,6 @@
         `;
         list.appendChild(item);
       });
-    }
-
-    function startAnimations() {
-      // تأثير النبض للبطاقة المميزة
-      const featuredCard = document.querySelector('.featured-card');
-      setInterval(() => {
-        featuredCard.classList.toggle('pulse');
-      }, 4000);
     }
 
     // دوال النسخ والمشاركة
@@ -664,7 +551,6 @@
 
     // عرض الإشعارات
     function showNotification(message) {
-      // إنشاء عنصر الإشعار
       const notification = document.createElement('div');
       notification.style.cssText = `
         position: fixed;
@@ -684,7 +570,6 @@
       notification.textContent = message;
       document.body.appendChild(notification);
       
-      // إخفاء الإشعار بعد 3 ثوانٍ
       setTimeout(() => {
         notification.style.opacity = '0';
         notification.style.transition = 'opacity 0.3s ease';
@@ -693,7 +578,6 @@
         }, 300);
       }, 3000);
       
-      // إضافة CSS للأنيميشن
       const style = document.createElement('style');
       style.textContent = `
         @keyframes slideUp {
